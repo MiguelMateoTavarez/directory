@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::all();
+        return view('welcome')->with('clients', $clients);
     }
 
     /**
@@ -24,7 +26,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -35,7 +37,19 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'last_name' => 'required',
+            'card_id' => 'required|unique:clients,card_id|max:11',
+        ]);
+
+        Client::create([
+            'name' => $request->input('name'),
+            'last_name' => $request->input('last_name'),
+            'card_id' => $request->input('card_id'),
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -44,9 +58,11 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(Client $client, $id)
     {
-        //
+        $data = Client::where('id',$id)->get();
+        $addresses = Address::where('client_id', $id)->get();
+        return view('show')->with('data', $data)->with('addresses', $addresses);
     }
 
     /**
