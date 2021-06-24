@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Directory')
+@section('title', 'Client')
 
 @section('content')
 @foreach($data as $client)
@@ -22,7 +22,6 @@
                 <td>{{ $address->address }}</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <a href="" type="button" class="btn btn-primary">Show</a>
                         <a href="" type="button" class="btn btn-warning">Edit</a>
                         <a href="" type="button" class="btn btn-danger">Delete</a>
                     </div>

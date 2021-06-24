@@ -14,7 +14,7 @@
                 <input class="form-control" type="text" name="last_name" placeholder="Last name">
             </div>
             <div class="mb-3">
-                <input class="form-control" type="tel" name="card_id" placeholder="Card id" pattern="[0-9]{11}" onkeypress="preventInputNonNumber(event)">
+                <input class="form-control" type="tel" name="card_id" placeholder="Card id" pattern="[0-9]{11}" maxlength="11" onkeypress="preventInputNonNumber(event)">
             </div>
             <div class="mb-3 text-center d-grid gap-2">
                 <input class="btn btn-primary btn-lg" type="submit" value="Save">

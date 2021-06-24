@@ -24,8 +24,8 @@
             <td>
                 <div class="btn-group" role="group">
                     <a href="{{ route('show', $client->id) }}" type="button" class="btn btn-primary">Show</a>
-                    <a href="" type="button" class="btn btn-warning">Edit</a>
-                    <a href="" type="button" class="btn btn-danger">Delete</a>
+                    <a href="{{ route('edit', $client->id) }}" type="button" class="btn btn-warning">Edit</a>
+                    <a href="{{ route('destroy', $client->id) }}" type="button" class="btn btn-danger">Delete</a>
                 </div>
             </td>
         </tr>

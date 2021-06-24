@@ -42,7 +42,7 @@ class ClientController extends Controller
             'last_name' => 'required',
             'card_id' => 'required|unique:clients,card_id|max:11',
         ]);
-
+        
         Client::create([
             'name' => $request->input('name'),
             'last_name' => $request->input('last_name'),
@@ -60,7 +60,7 @@ class ClientController extends Controller
      */
     public function show(Client $client, $id)
     {
-        $data = Client::where('id',$id)->get();
+        $data = $client::where('id',$id)->get();
         $addresses = Address::where('client_id', $id)->get();
         return view('show')->with('data', $data)->with('addresses', $addresses);
     }
@@ -71,9 +71,10 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Client $client, $id)
     {
-        //
+        $data = $client::where('id',$id)->get();
+        return view('edit')->with('data', $data);
     }
 
     /**
@@ -85,7 +86,15 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+
+        $client->update([
+            'name' => $request->input('name'),
+            'last_name' => $request->input('last_name'),
+            'card_id' => $request->input('card_id'),
+            'updated_at' => now(),
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -96,6 +105,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+
+        return redirect('/');
     }
 }
