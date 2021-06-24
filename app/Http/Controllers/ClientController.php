@@ -86,6 +86,11 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+        $request->validate([
+            'name' => 'required',
+            'last_name' => 'required',
+            'card_id' => 'required|unique:clients,card_id|max:11',
+        ]);
 
         $client->update([
             'name' => $request->input('name'),
@@ -103,9 +108,10 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Client $client, Address $address)
     {
         $client->delete();
+        $address->where('client_id', $client->id)->delete();
 
         return redirect('/');
     }

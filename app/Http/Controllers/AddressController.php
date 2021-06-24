@@ -27,7 +27,6 @@ class AddressController extends Controller
     {
 
         $request->validate([
-            'client_id' => 'required',
             'address' => 'required',
         ]);
 
