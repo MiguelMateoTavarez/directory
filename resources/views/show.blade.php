@@ -26,7 +26,7 @@
                 <td>
                     <div class="btn-group" role="group">
                         <a href="{{ route('edit_address', $address->id) }}" type="button" class="btn btn-warning">Edit</a>
-                        <a href="{{ route('destroy_address', $address->id) }}" type="button" class="btn btn-danger">Delete</a>
+                        <a onclick="confirmDelete(event)" href="{{ route('destroy_address', $address->id) }}" type="button" class="btn btn-danger">Delete</a>
                     </div>
                 </td>
             </tr>
@@ -35,4 +35,22 @@
     </table>
 </section>
 @endforeach
+@endsection
+
+@section('scripts')
+
+<script>
+    function confirmDelete(event)
+    {
+       if(confirm("The address will be deleted. Do you want to proceed?"))
+       {
+           return true;
+       }
+       else {
+           event.preventDefault();
+           return false;
+       }
+    }
+</script>
+
 @endsection
